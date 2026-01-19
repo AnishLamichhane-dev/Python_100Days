@@ -75,6 +75,5 @@ else:
     screen.bye()
     
     
-    
-
+ 
 screen.exitonclick()
