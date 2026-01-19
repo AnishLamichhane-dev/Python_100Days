@@ -1,7 +1,7 @@
 from turtle import Screen
-from paddle import Paddle
-from ball import Ball
-from scoreboard import Scoreboard
+from Day_22_Pong.paddle import Paddle
+from Day_22_Pong.ball import Ball
+from Day_22_Pong.scoreboard import Scoreboard
 from turtle import Turtle
 import time
 
