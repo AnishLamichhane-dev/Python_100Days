@@ -28,13 +28,13 @@ class Scoreboard(Turtle):
             self.right_user_wins()
 
     def right_user_wins(self):
-        self.goto(177, 0)
+        self.goto(0, 0)
         self.color("yellow")
         self.write("Right User WINS!!!", False, align="center",
                    font=("Courier", 24, "bold"))
 
     def left_user_wins(self):
-        self.goto(-170, 0)
+        self.goto(0, 0)
         self.color("yellow")
         self.write("Left User WINS!!!", False, align="center",
                    font=("Courier", 24, "bold"))

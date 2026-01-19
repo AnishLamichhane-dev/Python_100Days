@@ -35,7 +35,6 @@ class Snake:
         each_segment_of_snake.penup()
         each_segment_of_snake.goto(each_position)
         each_segment_of_snake.speed(user_choosen_difficulty)
-        print(each_segment_of_snake.speed())
 
         self.all_segments_of_snake.append(each_segment_of_snake)
 
