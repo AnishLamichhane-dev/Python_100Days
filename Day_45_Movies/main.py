@@ -1,7 +1,7 @@
 # When you complete watching the movie then delete that number from the txt file.
 
 from bs4 import BeautifulSoup
-
+# index.html = "https://www.empireonline.com/movies/features/best-movies-2/"
 with open("top100movies.html", "r", encoding="utf-8") as movies_html_file:
     entire_html_code = movies_html_file.read()
 
