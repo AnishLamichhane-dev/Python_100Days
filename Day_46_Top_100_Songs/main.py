@@ -3,6 +3,7 @@ import requests
 import os
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
+import time
 
 
 def authentication():
@@ -60,15 +61,15 @@ def search_videos(each_song_title):
     response_for_video_search = request_to_search_for_videos_using_title.execute()
 
     try:
-        global video_id
         video_id = response_for_video_search["items"][0]["id"]["videoId"]
+        return video_id
 
     except:
-        return "No video found"
+        return None
 
 
 def add_video_to_playlist_using_video_id():
-    """Add a video to the created playlist using the video ID."""
+    """Returns the request to add a video to the created playlist using the video ID."""
 
     request_to_add_video_to_playlist_using_video_id = youtube.playlistItems().insert(
         part="snippet",
@@ -78,13 +79,13 @@ def add_video_to_playlist_using_video_id():
                 "position": 0,
                 "resourceId": {
                     "kind": "youtube#video",
-                    "videoId": video_id
+                    "videoId": search_videos(each_song_title)
                 }
             }
         }
     )
+    return request_to_add_video_to_playlist_using_video_id
 
-    response_for_adding_video_to_playlist = request_to_add_video_to_playlist_using_video_id.execute()
 
 
 # Asks user for date input and scrapes the Billboard website for the top 100 songs and their artists on that date.
@@ -117,8 +118,14 @@ authentication()
 playlist_creation()
 
 for each_song_title in song_search_title:
-    search_videos(each_song_title)
-    if search_videos(each_song_title) == "No video found":
-        break
+    result = search_videos(each_song_title)
+    if result is None:
+        continue
     else:
-        add_video_to_playlist_using_video_id()
+        for i in range(5):
+            try:
+                add_video_to_playlist_using_video_id().execute()
+                break
+            except Exception as e:
+                print("Retrying...", i)
+                time.sleep(2)
